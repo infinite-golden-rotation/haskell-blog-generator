@@ -8,6 +8,9 @@ IO is an opaque type that behaves like any of the other monads we have encounter
     - Structure the way we created it
 We use combinators to chain/compose IO subroutines.
 
+Note, once we enter IO, we cannot examine the IO monad or leave. This means IO is a black hole.
+We want to push all IO to the edges of our program, leaving all inner workings as part of a **Functional Core** with an **Imperative Shell**.
+
 IO is a monad that can have various types, like IO String or the unit type IO().
 
 We have some IO combinators we should consider:
