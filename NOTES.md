@@ -69,3 +69,14 @@ confirm =
           putStrLn "Invalid response. use y or n" *>
             confirm
 ```
+### fmap
+```
+-- Takes a function and maps it into IO. So a String -> String function can act on IO.
+-- We can convert:
+getLine >>= \line -> pure (line ++ "!")
+-- into 
+fmap (\line -> line ++ "!") getLine
+-- We are providing a function that appends an exclamation mark to a String
+-- We then provide a function getLine of type IO String
+-- the result of fmap will then return an IO String via pure
+```
