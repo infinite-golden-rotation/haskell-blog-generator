@@ -1,14 +1,29 @@
-* Hello World!
-My name is Jaroor Modi. I am 
-learning Haskell!
+* Compiling programs with ghc
 
-I am testing out paragraphs.
+Running ghc invokes the Glasgow Haskell Compiler (GHC),
+and can be used to compile Haskell modules and programs into native
+executables and libraries.
 
-- I am also testing out unordered
-- lists
+Create a new Haskell source file named hello.hs, and write
+the following code in it:
 
-# Also what about ordered
-# lists?
+> main = putStrLn "Hello, Haskell!"
 
-> let testing_codeblocks = "Jaroor wrote this!"
-> in putStrLn(testing_codeblocks)
+Now, we can compile the program by invoking ghc with the file name:
+
+> ➜ ghc hello.hs
+> [1 of 1] Compiling Main             ( hello.hs, hello.o )
+> Linking hello ...
+
+GHC created the following files:
+
+- hello.hi - Haskell interface file
+- hello.o - Object file, the output of the compiler before linking
+- hello (or hello.exe on Microsoft Windows) - A native runnable executable.
+
+GHC will produce an executable when the source file satisfies both conditions:
+
+# Defines the main function in the source file
+# Defines the module name to be Main, or does not have a module declaration
+
+Otherwise, it will only produce the .o and .hi files.
