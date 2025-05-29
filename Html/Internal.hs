@@ -59,21 +59,6 @@ ol_ = Structure . el "ol" . concatMap (el "li" . getStructureString)
 li_ :: String -> String
 li_ = el "li" . escape -- no esc
 
--- I was being clever with making these lists map from structures,
--- but I actually need these to map from [String] -> Structure
--- renaming the old ones to be *__ to rewrite
-ul__ :: [Structure] -> Structure
-ul__ = Structure . el "ul" . list_
-
-ol__ :: [Structure] -> Structure
-ol__ = Structure . el "ol" . list_
-
-list_ :: [Structure] -> String
-list_ =
-  let liElt s =
-        (el "li" . escape) (getStructureString s)
-   in concatMap liElt
-
 -- * Render
 
 render :: Html -> String
@@ -99,16 +84,3 @@ escape =
           '\'' -> "&#39;"
           _ -> [c] -- String is the same as [char]
    in concat . map escapeChar
-
--- safeHead to ensure we don't error out on empty String
-safeHead :: [a] -> Maybe a
-safeHead list =
-  case list of
-    [] -> Nothing
-    x : _ -> Just x
-
-exactlyTwo :: [a] -> Maybe (a, a)
-exactlyTwo list =
-  case list of
-    [x, y] -> Just (x, y)
-    _ -> Nothing

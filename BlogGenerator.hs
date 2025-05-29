@@ -79,7 +79,7 @@ confirmOverwrite filename = do
   let choice
         | option == "y" = pure True
         | option == "n" = pure False
-        | otherwise = putStrLn "Invalid response. Use y or n" *> confirm__ filename
+        | otherwise = putStrLn "Invalid response. Use y or n" *> confirmOverwrite filename
   choice
 
 conditionalAction :: (Monoid a) => IO Bool -> IO a -> IO a
@@ -89,41 +89,3 @@ conditionalAction cond act = do
         | bcond = act
         | otherwise = mempty
   actResult
-
--- Old way using binds, we can use the syntactic sugar of do notation
-
-process__ :: H.Title -> String -> String
-process__ title text =
-  H.render $ C.convert title $ M.parse text
-
-main__ :: IO ()
-main__ =
-  getArgs >>= \args ->
-    case args of
-      [] -> getContents >>= \txt -> putStrLn $ process__ "Untitled" txt
-      [input] -> readFile input >>= \txt -> putStrLn $ process__ input txt --
-      [input, output] ->
-        readFile input >>= \content ->
-          doesFileExist output >>= \exists ->
-            let writeResult = writeFile output (process__ input content)
-             in if exists
-                  then whenIO__ (confirm__ output) writeResult
-                  else writeResult
-      _ -> putStrLn "default usercase message"
-
-confirm__ :: String -> IO Bool
-confirm__ filename =
-  putStrLn ("Are you sure you want to overwrite " <> filename <> "? (y/n)")
-    *> getLine
-    >>= \answer ->
-      case answer of
-        "y" -> pure True
-        "n" -> pure False
-        _ -> putStrLn "Invalid response. Use y or n" *> confirm__ filename
-
-whenIO__ :: IO Bool -> IO () -> IO ()
-whenIO__ cond action =
-  cond >>= \result ->
-    if result
-      then action
-      else pure ()
