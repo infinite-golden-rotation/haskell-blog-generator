@@ -1,4 +1,4 @@
-module Html.Internal where
+module HaskellBlog.Html.Internal where
 
 import GHC.Natural (Natural)
 

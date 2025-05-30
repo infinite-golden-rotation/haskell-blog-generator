@@ -1,4 +1,4 @@
-module Html.Colors where
+module HaskellBlog.Html.Colors where
 
 import Data.Word (Word8) -- u8 int type
 

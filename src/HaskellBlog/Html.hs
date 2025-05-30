@@ -1,7 +1,7 @@
 {-
   We move all our old Html code to internal in case we want to allow for modifcation later.
 -}
-module Html
+module HaskellBlog.Html
   ( Html,
     Title,
     Structure,
@@ -20,5 +20,5 @@ module Html
   )
 where
 
-import Html.Colors
-import Html.Internal
+import HaskellBlog.Html.Colors
+import HaskellBlog.Html.Internal

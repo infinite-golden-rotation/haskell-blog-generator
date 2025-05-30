@@ -1,7 +1,7 @@
-module Convert where
+module HaskellBlog.Convert where
 
-import Html qualified as H
-import Markup qualified as M
+import HaskellBlog.Html qualified as H
+import HaskellBlog.Markup qualified as M
 
 convert :: H.Title -> M.Document -> H.Html
 convert title = H.html_ title . foldMap convertStructure

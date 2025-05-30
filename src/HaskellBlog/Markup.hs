@@ -1,11 +1,11 @@
-module Markup
+module HaskellBlog.Markup
   ( Document,
     Structure (..),
     parse,
   )
 where
 
-import Data.Maybe (listToMaybe, maybeToList)
+import Data.Maybe
 import Numeric.Natural
 
 type Document =

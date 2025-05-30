@@ -1,9 +1,9 @@
-module Main where
+module HaskellBlog where
 
-import Convert qualified as C
+import HaskellBlog.Convert qualified as C
+import HaskellBlog.Html qualified as H
+import HaskellBlog.Markup qualified as M
 import Data.Functor (($>))
-import Html qualified as H
-import Markup qualified as M
 import System.Directory (doesFileExist)
 import System.Environment (getArgs)
 
