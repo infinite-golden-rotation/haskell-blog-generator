@@ -2,6 +2,8 @@ module HaskellBlog.Html.Internal where
 
 import GHC.Natural (Natural)
 
+-----------------------------------------------------------------------------------
+
 -- * Types
 
 newtype Html
@@ -12,16 +14,24 @@ newtype Structure
   = Structure String
   deriving (Show)
 
+newtype Content = Content String
+
 instance Semigroup Structure where
   (<>) (Structure a) (Structure b) = Structure (a <> b)
 
--- Monoid like in algebra, a semigroup with an identity
--- here the mempty is an identity under mconcat, defined above
 instance Monoid Structure where
   mempty = Structure ""
 
-type Title =
-  String
+type Title = String
+
+-----------------------------------------------------------------------------------
+
+-- * Render
+
+render :: Html -> String
+render (Html h) = h
+
+-----------------------------------------------------------------------------------
 
 -- * EDSL
 
@@ -44,7 +54,6 @@ code_ = Structure . el "pre" . escape
 h1_ :: String -> Structure
 h1_ = Structure . el "h1" . escape
 
--- generalized header tagging function, header levels max out at 6 in html
 h_ :: Natural -> String -> Structure
 h_ lev
   | lev <= 6 = Structure . el ("h" <> show lev) . escape
@@ -59,10 +68,7 @@ ol_ = Structure . el "ol" . concatMap (el "li" . getStructureString)
 li_ :: String -> String
 li_ = el "li" . escape -- no esc
 
--- * Render
-
-render :: Html -> String
-render (Html h) = h
+-----------------------------------------------------------------------------------
 
 -- * Utilities
 

@@ -106,7 +106,8 @@ executable haskell-blog-generator
     build-depends:
         base ^>=4.18.3.0,
         haskell-blog-generator,
-        optparse-applicative
+        optparse-applicative, 
+        directory
 
 test-suite haskell-blog-generator-test
     -- Import common warning flags.
